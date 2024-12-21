@@ -5,9 +5,9 @@ name: 'Terraform'
 on:
   push:
     branches: [ "main" ]
-  pull_request:
     paths:
         - 'terraform/**.tf' # Trigger only for changes in the frontend directory
+  pull_request:
 
 permissions:
   contents: read
