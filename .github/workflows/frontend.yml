@@ -1,0 +1,25 @@
+name: Frontend CI
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'html/**' # Trigger only for changes in the frontend directory
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_SECRET_ACCESS_KEY : ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+jobs:
+  deploy-website:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Step 2: Upload files to S3
+    - name: Upload files to S3
+      run: aws s3 sync html/ s3://${{ secrets.S3_BUCKET}}
+    
