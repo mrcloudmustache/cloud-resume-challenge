@@ -22,4 +22,9 @@ jobs:
     # Step 2: Upload files to S3
     - name: Upload files to S3
       run: aws s3 sync html/ s3://${{ secrets.S3_BUCKET}}
+
+    # Step 3: Invalidate CloudFront cache
+    - name: Invalidate CloudFront Cache
+      run: |
+        aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths '/*'
     
